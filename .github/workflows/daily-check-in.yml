@@ -35,10 +35,9 @@ jobs:
           TELEGRAM_USERID: ${{ secrets.TELEGRAM_USERID }}
         if: ${{ success() && env.TELEGRAM_TOKEN != '' && env.TELEGRAM_USERID != '' }}
         run: |
-          curl -s -X POST "https://sctapi.ftqq.com/SCT212038TuJfj4aB9vjn92y04jsa3Leqi.send" \
-          -d chat_id=${{ env.TELEGRAM_USERID }} \
-          -d parse_mode=HTML \
-          -d title="✅ <b>LINUX DO</b> 每日签到成功完成"
+           curl -s -X POST "https://sctapi.ftqq.com/SCT212038TuJfj4aB9vjn92y04jsa3Leqi.send" \
+           -H 'Content-Type: application/json;charset=utf-8' \
+           -d '{"title": "LINUX DO 每日签到成功完成", "desp": "签到成功"}'
 
       - name: Send Failure Notification
         env:
@@ -46,10 +45,9 @@ jobs:
           TELEGRAM_USERID: ${{ secrets.TELEGRAM_USERID }}
         if: ${{ failure() && env.TELEGRAM_TOKEN != '' && env.TELEGRAM_USERID != '' }}
         run: |
-          curl -s -X POST "https://sctapi.ftqq.com/SCT212038TuJfj4aB9vjn92y04jsa3Leqi.send" \
-          -d chat_id=${{ env.TELEGRAM_USERID }} \
-          -d parse_mode=HTML \
-          -d title="❌ <b>LINUX DO</b> 每日签到失败"
+         curl -s -X POST "https://sctapi.ftqq.com/SCT212038TuJfj4aB9vjn92y04jsa3Leqi.send" \
+           -H 'Content-Type: application/json;charset=utf-8' \
+           -d '{"title": "LINUX DO 每日签到失败", "desp": "签到失败"}'
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v2
